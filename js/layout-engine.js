@@ -1,5 +1,16 @@
 (
   function() {
+    
+    function init(){
+      const iframe = createIframe();
+      const postMessageEventBus = new PostMessageEventBus(window, iframe.contentWindow);
+      postMessageEventBus.getMessages('INIT').subscribe(message => console.log(message.data));
+    }
+    
+    function onInitMessage(message){
+       console.log(message.data)
+    }
+    
     function createIframe(){
       console.log( "Create iframe" );
       const iframe = document.createElement("iframe");
@@ -9,11 +20,7 @@
     }
     
     
-    window.addEventListener('DOMContentLoaded', function() {
-      const iframe = createIframe();
-      const postMessageEventBus = new PostMessageEventBus(window, iframe.contentWindow);
-      postMessageEventBus.sendMessage('INIT', {message: 'Initialisation '});
-    });
+    window.addEventListener('DOMContentLoaded', init);
   }
 )();
 
