@@ -35,10 +35,11 @@ class MockWebSocketEventBus {
     
     this.messages = Observable.create();
   }
-	
-	getMessages(messageType) {
-	    return this.messages.filter(message => messageType === message.type);
-	}
+
+  getMessages(messageType) {
+    return this.messages.pipe(
+      filter(message => messageType === message.type));
+  }
 	
 	sendMessage(messageType, data) {
 	    switch(messageType) {
