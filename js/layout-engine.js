@@ -7,7 +7,7 @@
       postMessageEventBus.getMessages('INIT').subscribe(onInitMessage);
       
       function onInitMessage(message){
-        console.log('Message received ${message.data}');
+        console.log(`Message received ${message.data}`);
         postMessageEventBus.sendMessage('TEST', 'Test message');
       }
     }
