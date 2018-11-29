@@ -9,7 +9,7 @@
     }
     
     function onSnapshotMessage(message){
-      console.log(`Message received ${message.data}`);
+      console.log('pres.postMessageEventBus.onSnapshotMessage');
     }
     
     window.addEventListener('DOMContentLoaded', init);
