@@ -33,24 +33,23 @@ class MockWebSocketEventBus {
     this.getMessages.bind(this);
     this.sendMessage.bind(this);
     
-    this.messages = Observable.create();
+    this.messages = Subject().create();
   }
 
   getMessages(messageType) {
     return this.messages.pipe(
-      filter(message => messageType === message.type));
+      filter(message => messageType === message.type)).asObservable();
   }
-	
-	sendMessage(messageType, data) {
-	    switch(messageType) {
-        case "REQUEST-SNAPSHOT":
-          this.messages.next(
-            JSON.stringify({
-              type: "SNAPSHOT",
-              data: {}
-            })
-          );
-      }
-	}
+  
+  sendMessage(messageType, data) {
+    switch(messageType) {
+      case "REQUEST-SNAPSHOT":
+        this.messages.next(
+          JSON.stringify({
+            type: "SNAPSHOT",
+            data: {}
+          }));
+    }
+  }
 }
 
