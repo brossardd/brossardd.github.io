@@ -3,10 +3,11 @@
     
     function init(){
       const postMessageEventBus = new PostMessageEventBus(window, iframe.contentWindow);
-      postMessageEventBus.getMessages('INIT').subscribe(onInitMessage);
+      postMessageEventBus.getMessages('TEST').subscribe(onTestMessage);
+      postMessageEventBus.sendMessage('INIT', 'Presentation initialized');
     }
     
-    function onInitMessage(message){
+    function onTestMessage(message){
       console.log(message.data);
     }
     
