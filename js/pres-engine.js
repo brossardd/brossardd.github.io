@@ -3,7 +3,7 @@
     
     function init(){
       console.log('Init presentation');
-      const postMessageEventBus = new PostMessageEventBus(window, iframe.contentWindow);
+      const postMessageEventBus = new PostMessageEventBus(window, window.parent);
       postMessageEventBus.getMessages('TEST').subscribe(onTestMessage);
       postMessageEventBus.sendMessage('INIT', 'Presentation initialized');
     }
