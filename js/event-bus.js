@@ -28,5 +28,28 @@ class PostMessageEventBus {
   }
 }
 
-
+class MockWebSocketEventBus {
+  constructor(websocketCtr) {
+    this.getMessages.bind(this);
+    this.sendMessage.bind(this);
+    
+    this.messages = Observable.create();
+  }
+	
+	getMessages(messageType) {
+	    return this.messages.filter(message => messageType === message.type);
+	}
+	
+	sendMessage(messageType, data) {
+	    switch(messageType) {
+        case "REQUEST-SNAPSHOT":
+          this.messages.next(
+            JSON.stringify({
+              type: "SNAPSHOT",
+              data: {}
+            })
+          );
+      }
+	}
+}
 
