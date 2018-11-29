@@ -3,7 +3,7 @@
     function createIframe(){
       console.log( "Create iframe" );
       const iframe = document.createElement("iframe");
-      iframe.setAttribute("src", "https://google.com/");
+      iframe.setAttribute("src", "./pres.html");
       document.body.appendChild(iframe);
     }
     
