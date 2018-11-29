@@ -9,7 +9,7 @@
     }
     
     function onTestMessage(message){
-      console.log('Message received ${message.data}');
+      console.log(`Message received ${message.data}`);
     }
     
     window.addEventListener('DOMContentLoaded', init);
