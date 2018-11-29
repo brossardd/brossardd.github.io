@@ -8,7 +8,7 @@
       
       function onInitMessage(message){
         console.log('Message received ${message.data}');
-        postMessageEventBus.send('TEST', 'Test message');
+        postMessageEventBus.sendMessage('TEST', 'Test message');
       }
     }
     
