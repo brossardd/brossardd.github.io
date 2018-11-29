@@ -1,9 +1,9 @@
 (
   function() {
     function createIframe(){
-      document.createElement("iframe");
-      ifrm.setAttribute("src", "http://google.com/");
-      document.body.appendChild(ifrm);
+      const iframe = document.createElement("iframe");
+      iframe.setAttribute("src", "http://google.com/");
+      document.body.appendChild(iframe);
     }
     createIframe();
   }
