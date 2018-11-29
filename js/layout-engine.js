@@ -4,7 +4,7 @@
     function init(){
       const iframe = createIframe();
       const postMessageEventBus = new PostMessageEventBus(window, iframe.contentWindow);
-      postMessageEventBus.getMessages('INIT').subscribe(message => console.log(message.data));
+      postMessageEventBus.getMessages('INIT').subscribe(onInitMessage);
       
       
       function onInitMessage(message){
