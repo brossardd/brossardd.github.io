@@ -20,6 +20,7 @@ class PostMessageEventBus {
   }
  
   sendMessage(messageType, data) {
+    console.log('Send message' )
     this.target.postMessage(JSON.stringify({
       type: messageType,
       data: data
