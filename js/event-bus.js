@@ -33,7 +33,7 @@ class MockWebSocketEventBus {
     this.getMessages.bind(this);
     this.sendMessage.bind(this);
     
-    this.messages = Subject().create();
+    this.messages = Subject.create();
   }
 
   getMessages(messageType) {
