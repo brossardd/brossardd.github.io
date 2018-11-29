@@ -6,9 +6,8 @@
       const postMessageEventBus = new PostMessageEventBus(window, iframe.contentWindow);
       postMessageEventBus.getMessages('INIT').subscribe(onInitMessage);
       
-      
       function onInitMessage(message){
-        console.log(message.data);
+        console.log('Message received ${message.data}');
         postMessageEventBus.send('TEST', 'Test message');
       }
     }
