@@ -1,11 +1,16 @@
 (
   function() {
     function createIframe(){
+      console.log( "Create iframe" );
       const iframe = document.createElement("iframe");
-      iframe.setAttribute("src", "http://google.com/");
+      iframe.setAttribute("src", "https://google.com/");
       document.body.appendChild(iframe);
     }
-    createIframe();
+    
+    
+    window.addEventListener('DOMContentLoaded', function() {
+      createIframe();
+		});
   }
 )();
 
