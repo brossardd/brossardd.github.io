@@ -43,12 +43,12 @@ class MockWebSocketEventBus {
   
   sendMessage(messageType, data) {
     switch(messageType) {
-      case "REQUEST-SNAPSHOT":
+      case 'REQUEST-SNAPSHOT':
         this.messages.next(
-          JSON.stringify({
+          {
             type: "SNAPSHOT",
             data: {}
-          }));
+          });
     }
   }
 }
