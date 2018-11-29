@@ -7,7 +7,7 @@
       postMessageEventBus.getMessages('INIT').subscribe(onInitMessage);
 
       const websocketEventBus = new MockWebSocketEventBus();
-      websocketEventBus.getMessage('SNAPSHOT').subscribe(onSnapshotMessage);
+      websocketEventBus.getMessages('SNAPSHOT').subscribe(onSnapshotMessage);
       
       function onInitMessage(message){
         console.log(`Message received ${message.data}`);
