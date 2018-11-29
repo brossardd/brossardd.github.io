@@ -5,10 +5,18 @@
       const iframe = createIframe();
       const postMessageEventBus = new PostMessageEventBus(window, iframe.contentWindow);
       postMessageEventBus.getMessages('INIT').subscribe(onInitMessage);
+
+      const websocketEventBus = new MockWebSocketEventBus();
+      websocketEventBus.getMessage('SNAPSHOT').subscribe(onSnapshotMessage);
       
       function onInitMessage(message){
         console.log(`Message received ${message.data}`);
-        postMessageEventBus.sendMessage('TEST', 'Test message');
+        websocketEventBus.sendMessage('REQUEST-SNAPSHOT', 'Request snapshot message');
+      }
+      
+      function onSnapshotMessage(message){
+        console.log(`Message received ${message.data}`);
+        postMessageEventBus.sendMessage('SNAPSHOT', message.data);
       }
     }
     
