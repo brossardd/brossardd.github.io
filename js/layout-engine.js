@@ -10,12 +10,12 @@
       websocketEventBus.getMessages('SNAPSHOT').subscribe(onSnapshotMessage);
       
       function onInitMessage(message){
-        console.log(`Message received ${message.data}`);
+        console.log('layout.postMessageEventBus.onInitMessage');
         websocketEventBus.sendMessage('REQUEST-SNAPSHOT', 'Request snapshot message');
       }
       
       function onSnapshotMessage(message){
-        console.log(`Message received ${message.data}`);
+        console.log('layout.websocketEventBus.onSnapshotMessage');
         postMessageEventBus.sendMessage('SNAPSHOT', message.data);
       }
     }
