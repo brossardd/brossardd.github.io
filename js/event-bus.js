@@ -28,7 +28,7 @@ class PostMessageEventBus {
     }
     return this.messages
       .pipe(
-        map(event => event.data),
+        map(event => event.data.data),
         filter(message => message.type === messageType)
     );
   }
