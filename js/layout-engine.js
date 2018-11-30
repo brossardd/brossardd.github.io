@@ -10,10 +10,10 @@ class LayoutEngine {
     const websocketEventBus = new MockWebSocketEventBus();
     const postMessageEventBus = new PostMessageEventBus(window, targetWin);
     
-    websocketEventBus.getMessages().subscribe(postMessageEventBus.send);
-    postMessageEventBus.getMessages().subscribe(websocketEventBus.send);
+    websocketEventBus.getMessages().subscribe(postMessageEventBus.sendMessage);
+    postMessageEventBus.getMessages().subscribe(websocketEventBus.sendMessage);
     
-    //postMessageEventBus.getMessages().subscribe(this.log);
+    postMessageEventBus.getMessages().subscribe(this.log);
   }
   
   log(message){
