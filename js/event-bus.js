@@ -28,7 +28,7 @@ class PostMessageEventBus {
         messageTypeRegex = '/*/g';
       }
       return this.messages.pipe(
-          filter(data => data.type.match(messageType)));
+          filter(data => data.type.match(messageTypeRegex)));
     };
     
     /** @description Send a PostMessage to the target window.
@@ -56,18 +56,18 @@ class WebSocketEventBus {
     this.subject = webSocket({websocketCtr});
     
     /** @description Returns an observable of the incoming messages.
-    * The messages can be filtered if the messageType is not null or "*".
+    * The messages can be filtered if the messageTypeRegex is not null.
     * @param {string} messageTypeRegex The message type regex used to filter the incoming messages
     * @return {Observable} An observable of the incoming messages.
     */
     this.getMessages = messageTypeRegex => {
       if(!messageTypeRegex) {
-        messageType = '/*/g';
+        messageTypeRegex = '/*/g';
       }
       return this.subject.multiplex(
-        () => JSON.stringify({subscribe: messageType}),
-        () => JSON.stringify({unsubscribe: messageType}),
-        message => message.type.match(messageType));
+        () => JSON.stringify({subscribe: messageTypeRegex}),
+        () => JSON.stringify({unsubscribe: messageTypeRegex}),
+        message => message.type.match(messageTypeRegex));
     };
 
    /** @description Send a message.
@@ -99,7 +99,7 @@ class MockWebSocketEventBus {
   constructor(websocketCtr) {
     this.messages = new FakeSubject();
     
-    this.getMessages = messageType => {
+    this.getMessages = messageTypeRegex => {
       return this.messages;
     };
   
