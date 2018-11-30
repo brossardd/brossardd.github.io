@@ -13,7 +13,7 @@ class LayoutEngine {
     websocketEventBus.getMessages().subscribe(postMessageEventBus.send);
     postMessageEventBus.getMessages().subscribe(websocketEventBus.send);
     
-    postMessageEventBus.getMessages().subscribe(this.log);
+    //postMessageEventBus.getMessages().subscribe(this.log);
   }
   
   log(message){
