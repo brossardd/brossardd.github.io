@@ -16,8 +16,8 @@
     function onMessage(message){
       console.log('PRES : Message Received');
       console.log(`Message Type : ${message.type}`);
-      const messageString = JSON.stringify(message);
-        console.log(`Message : ${messageString}`);
+      const messageData = JSON.stringify(message.data);
+      console.log(`Message : ${messageString}`);
     }
     
     window.addEventListener('DOMContentLoaded', init);
