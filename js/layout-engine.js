@@ -17,7 +17,7 @@
       
       function onSnapshotMessage(message){
         console.log('layout.websocketEventBus.onSnapshotMessage');
-        postMessageEventBus.sendMessage('SNAPSHOT', message.data);
+        postMessageEventBus.sendMessage('SNAPSHOT', {});
       }
       
       function onMessage(message){
