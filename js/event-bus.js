@@ -31,7 +31,7 @@ class PostMessageEventBus {
 class FakeSubject {
   constructor(){
     this.subscribe.bind(this);
-    this.next.bing(this);
+    this.next.bind(this);
   }
   subscribe(sub) {
     this.subscribtion = sub;
