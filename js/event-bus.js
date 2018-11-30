@@ -43,11 +43,11 @@ class PostMessageEventBus {
 
 class FakeSubject {
   constructor(){
-    subscribe = sub => {
+    this.subscribe = sub => {
       this.subscribtion = sub;
     };
   
-    next = message => {
+    this.next = message => {
       this.subscribtion(message);
     };
   }
@@ -57,11 +57,11 @@ class MockWebSocketEventBus {
   constructor(websocketCtr) {
     this.messages = new FakeSubject();
     
-    getMessages = messageType => {
+    this.getMessages = messageType => {
       return this.messages;
     };
   
-    sendMessage = ({type, data}) => {
+    this.sendMessage = ({type, data}) => {
       if(type === 'REQUEST-SNAPSHOT') {
         this.messages.next({type: 'SNAPSHOT', data: {}});
       };
