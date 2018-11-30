@@ -25,7 +25,7 @@ class PostMessageEventBus {
     */
     this.getMessages = messageTypeRegex => {
       if(!messageType){
-        messageTypeRegex = /*/g;
+        messageTypeRegex = '/*/g';
       }
       return this.messages.pipe(
           filter(data => data.type.match(messageType)));
@@ -62,7 +62,7 @@ class WebSocketEventBus {
     */
     this.getMessages = messageTypeRegex => {
       if(!messageType) {
-        messageType = /*/g;
+        messageType = '/*/g';
       }
       return this.subject.multiplex(
         () => JSON.stringify({subscribe: messageType}),
