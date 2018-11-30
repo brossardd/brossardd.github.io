@@ -66,14 +66,13 @@ class WebSocketEventBus {
           () => JSON.stringify({subscribe: messageType}),
           () => JSON.stringify({unsubscribe: messageType}),
           message => true);
-        }
       }
 
       return this.subject.multiplex(
         () => JSON.stringify({subscribe: messageType}),
         () => JSON.stringify({unsubscribe: messageType}),
         message => message.type === messageType);
-    }
+    };
 
    /** @description Send a message.
     * @param {Object} message The message
