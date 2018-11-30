@@ -24,11 +24,11 @@ class PostMessageEventBus {
     * @return {Observable} An observable of the incoming messages.
     */
     this.getMessages = messageType => {
-      if(!messageType || messageType === '*'){
-        return this.messages;
+      if(!messageType){
+        messageType = '*';
       }
       return this.messages.pipe(
-          filter(data => data.type === messageType));
+          filter(data => data.type.match(messageType)));
     };
     
     /** @description Send a PostMessage to the target window.
@@ -62,16 +62,13 @@ class WebSocketEventBus {
     */
     this.getMessages = messageType => {
       if(!messageType || messageType === '*') {
-        return this.subject.multiplex(
-          () => JSON.stringify({subscribe: messageType}),
-          () => JSON.stringify({unsubscribe: messageType}),
-          message => true);
+        messageType = '*';
       }
-
+      
       return this.subject.multiplex(
         () => JSON.stringify({subscribe: messageType}),
         () => JSON.stringify({unsubscribe: messageType}),
-        message => message.type === messageType);
+        message => message.type.match(messageType));
     };
 
    /** @description Send a message.
