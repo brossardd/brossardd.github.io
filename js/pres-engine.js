@@ -6,7 +6,7 @@
       const postMessageEventBus = new PostMessageEventBus(window, window.parent);
       postMessageEventBus.getMessages().subscribe(onMessage);
       postMessageEventBus.getMessages('SNAPSHOT').subscribe(onSnapshotMessage);
-      postMessageEventBus.sendMessage({type:'INIT', data:'Presentation initialized'});
+      postMessageEventBus.sendMessage({type:'REQUEST-SNAPSHOT', data:'Request a snapshot'});
     }
     
     function onSnapshotMessage(message){
