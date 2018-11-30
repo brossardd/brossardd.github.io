@@ -10,9 +10,6 @@ class PostMessageEventBus {
   * @param {window} target The target window for sent messages
   */ 
   constructor(origin, target) {
-    this.getMessages.bind(this);
-    this.sendMessage.bind(this);
-    
     this.messages = fromEvent(origin, 'message').pipe(
       map(event => event.data));
     this.target = target;
@@ -23,7 +20,7 @@ class PostMessageEventBus {
   * @param {string} messageType The message type used to filter the incoming messages
   * @return {Observable} An observable of the incoming messages.
   */
-  getMessages(messageType) {
+  getMessages = (messageType) => {
     if(!messageType || messageType === '*'){
       return this.messages;
     }
@@ -36,38 +33,34 @@ class PostMessageEventBus {
   * @param {string} message.type The message type.
   * @param {string} message.data The message data.
   */
-  sendMessage({type, data}) {
+  sendMessage = ({type, data}) => {
     this.target.postMessage({type, data}, '*');
   }
 }
 
 class FakeSubject {
   constructor(){
-    this.subscribe.bind(this);
-    this.next.bind(this);
   }
-  subscribe(sub) {
+  
+  subscribe = (sub) => {
     this.subscribtion = sub;
   }
   
-  next(message){
+  next = (message) => {
     this.subscribtion(message);
   }
 }
 
 class MockWebSocketEventBus {
   constructor(websocketCtr) {
-    this.getMessages.bind(this);
-    this.sendMessage.bind(this);
-    
     this.messages = new FakeSubject();
   }
 
-  getMessages(messageType) {
+  getMessages = (messageType) => {
     return this.messages;
   }
   
-  sendMessage({type, data}) {
+  sendMessage = ({type, data}) => {
     if(type === 'REQUEST-SNAPSHOT') {
       this.messages.next({type: 'SNAPSHOT', data: {}});
     }
