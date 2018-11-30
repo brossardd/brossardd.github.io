@@ -17,7 +17,7 @@
       console.log('PRES : Message Received');
       console.log(`Message Type : ${message.type}`);
       const messageString = JSON.stringify(message);
-        console.log(`Message Data : ${messageString}`);
+        console.log(`Message : ${messageString}`);
     }
     
     window.addEventListener('DOMContentLoaded', init);
