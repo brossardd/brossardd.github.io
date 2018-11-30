@@ -13,7 +13,8 @@ class PostMessageEventBus {
     this.getMessages.bind(this);
     this.sendMessage.bind(this);
       
-    this.messages = fromEvent(origin, 'message');
+    this.messages = fromEvent(origin, 'message').pipe(
+      map(event => event.data));
     this.target = target;
   }
  
@@ -24,13 +25,10 @@ class PostMessageEventBus {
   */
   getMessages(messageType) {
     if(!messageType || messageType === '*'){
-      return this.messages
+      return this.messages;
     }
-    return this.messages
-      .pipe(
-        map(event => event.data),
-        filter(data => data.type === messageType)
-    );
+    return this.messages.pipe(
+        filter(data => data.type === messageType));
   }
  
   /** @description Send a PostMessage to the target window.
