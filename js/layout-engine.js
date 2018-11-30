@@ -1,3 +1,21 @@
+
+
+class LayoutEngine {
+  constructor() {
+    this.init.bind(this);
+  }
+  
+  init(targetWin){
+    const websocketEventBus = new MockWebSocketEventBus();
+    const postMessageEventBus = new PostMessageEventBus(window, targetWin);
+    
+    websocketEventBus.getMessages().subscribe(postMessageEventBus.send);
+    postMessageEventBus.getMessages().subscribe(websocketEventBus.send);
+  }
+}
+
+
+
 function init(){
   const iframe = createIframe();
   const postMessageEventBus = new PostMessageEventBus(window, iframe.contentWindow);
