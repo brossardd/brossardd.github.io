@@ -3,6 +3,7 @@
 class LayoutEngine {
   constructor() {
     this.init.bind(this);
+    this.log.bind(this);
   }
   
   init(targetWin){
@@ -11,6 +12,14 @@ class LayoutEngine {
     
     websocketEventBus.getMessages().subscribe(postMessageEventBus.send);
     postMessageEventBus.getMessages().subscribe(websocketEventBus.send);
+    
+    postMessageEventBus.getMessages().subscribe(this.log);
+  }
+  
+  log(message){
+    console.log('LAYOUT MESSAGE RECEIVED');
+    console.log('MESSAGE TYPE : ' + message.type);
+    console.log('MESSAGE DATA : ' + JSON.stringify(message.data));
   }
 }
 
@@ -29,13 +38,3 @@ function init(){
     return iframe;
   }
 }
-
-
-
-
-
-
-
-
-
-
