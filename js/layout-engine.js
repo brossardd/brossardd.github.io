@@ -24,7 +24,7 @@
         console.log('LAYOUT : Message Received');
         console.log(`Message Type : ${message.type}`);
         const messageData = JSON.stringify(message.data);
-        console.log(`Message : ${messageData}`);
+        console.log(`Data : ${messageData}`);
       }
     }
     
