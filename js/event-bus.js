@@ -24,7 +24,7 @@ class PostMessageEventBus {
     * @return {Observable} An observable of the incoming messages.
     */
     this.getMessages = messageTypeRegex => {
-      if(!messageType){
+      if(!messageTypeRegex){
         messageTypeRegex = '/*/g';
       }
       return this.messages.pipe(
@@ -61,7 +61,7 @@ class WebSocketEventBus {
     * @return {Observable} An observable of the incoming messages.
     */
     this.getMessages = messageTypeRegex => {
-      if(!messageType) {
+      if(!messageTypeRegex) {
         messageType = '/*/g';
       }
       return this.subject.multiplex(
