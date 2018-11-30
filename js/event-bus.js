@@ -28,17 +28,30 @@ class PostMessageEventBus {
   }
 }
 
+class FakeSubject {
+  constructor(){
+    this.subscribe.bind(this);
+    this.next.bing(this);
+  }
+  subscribe(sub) {
+    this.subscribtion = sub;
+  }
+  
+  next(message){
+    this.subscribtion(message);
+  }
+}
+
 class MockWebSocketEventBus {
   constructor(websocketCtr) {
     this.getMessages.bind(this);
     this.sendMessage.bind(this);
     
-    this.messages = Subject.create();
+    this.messages = new FakeSubject();
   }
 
   getMessages(messageType) {
-    return this.messages.pipe(
-      filter(message => messageType === message.type)).asObservable();
+    return this.messages;
   }
   
   sendMessage(messageType, data) {
