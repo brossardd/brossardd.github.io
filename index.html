@@ -1,9 +1,66 @@
-<html>
-  <header>
-    <script src="https://unpkg.com/rxjs@6.3.3/bundles/rxjs.umd.js"></script>
-    <script src="./js/event-bus.js"></script>
-    <script src="./js/layout-engine.js"></script>
-  </header>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script src="https://unpkg.com/rxjs@6.3.3/bundles/rxjs.umd.js"></script>
+  <script src="./js/event-bus.js"></script>
+  <script src="./js/layout-engine.js"></script>
+  <title>Ensuite Stage page </title>
+	<link rel="stylesheet" href="/node_modules/normalize.css/normalize.css">
+	<style type="text/css">
+		html, body{
+			width: 100%;
+			height: 100%;
+		}
+		html{
+			--bg-color : #424242;
+			font-size: 15px;
+		}
+		body {
+			background: var(--bg-color);
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center
+		}
+		#content{
+			display: flex;
+			width: 50%;
+			justify-content: center;
+		}
+		#inputPresentation{
+			flex: 1;
+			margin-right: 10px;
+		}
+		#btnValidate{
+			border-radius: 5px;
+			background-color: orange;
+			width: 100px;
+			height: 50px;
+			line-height: 50px;
+			font-weight: 600;
+			color: white;
+			text-align: center;
+			cursor: pointer;
+		}
+		#stageFrame{
+			flex: 1;
+			border: 0;
+			width: 100%;
+		}
+	</style>
+</head>
+
 <body>
+
+	<div id="content">
+		<input id="inputPresentation" type="url" placeholder="Enter the url of your presentation : http://mypresentationurl/index.html">
+		<div id="btnValidate">Validate Url</div>
+	</div>
+
 </body>
+
 </html>
