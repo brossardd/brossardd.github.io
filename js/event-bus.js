@@ -68,7 +68,9 @@ class MockWebSocketEventBus {
   }
   
   sendMessage({type, data}) {
-    this.messages.next({type, data});
+    if(type === 'REQUEST-SNAPSHOT') {
+      this.messages.next({'SNAPSHOT', {}});
+    }
   }
 }
 
