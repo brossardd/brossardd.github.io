@@ -29,18 +29,18 @@ class PostMessageEventBus {
     return this.messages
       .pipe(
         map(event => event.data),
-        filter(message => message.type === messageType)
+        filter(data => data.type === messageType)
     );
   }
  
   /** @description Send a PostMessage to the target window.
   * @param {string} messageType The message type
-  * @param {string} messageType The message data 
+  * @param {string} message The message to send 
   */
-  sendMessage(messageType, data) {
+  sendMessage(messageType, message) {
     this.target.postMessage({
       type: messageType,
-      data: data
+      message: message
     }, '*');
   }
 }
@@ -71,13 +71,13 @@ class MockWebSocketEventBus {
     return this.messages;
   }
   
-  sendMessage(messageType, data) {
+  sendMessage(messageType, message) {
     switch(messageType) {
       case 'REQUEST-SNAPSHOT':
         this.messages.next(
           {
             type: "SNAPSHOT",
-            data: {}
+            message: {}
           });
     }
   }
