@@ -33,12 +33,12 @@ class PostMessageEventBus {
  
   /** @description Send a PostMessage to the target window.
   * @param {string} messageType The message type
-  * @param {string} message The message to send 
+  * @param {string} data The message to send 
   */
-  sendMessage(messageType, message) {
+  sendMessage(messageType, data) {
     this.target.postMessage({
       type: messageType,
-      message: message
+      data: data
     }, '*');
   }
 }
@@ -69,13 +69,13 @@ class MockWebSocketEventBus {
     return this.messages;
   }
   
-  sendMessage(messageType, message) {
+  sendMessage(messageType, data) {
     switch(messageType) {
       case 'REQUEST-SNAPSHOT':
         this.messages.next(
           {
             type: "SNAPSHOT",
-            message: {}
+            data: {}
           });
     }
   }
