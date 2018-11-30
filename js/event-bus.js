@@ -28,7 +28,7 @@ class PostMessageEventBus {
     }
     return this.messages
       .pipe(
-        map(event => JSON.parse(event.data)),
+        map(event => event.data),
         filter(message => message.type === messageType)
     );
   }
@@ -38,10 +38,10 @@ class PostMessageEventBus {
   * @param {string} messageType The message data 
   */
   sendMessage(messageType, data) {
-    this.target.postMessage(JSON.stringify({
+    this.target.postMessage({
       type: messageType,
       data: data
-    }), '*');
+    }, '*');
   }
 }
 
