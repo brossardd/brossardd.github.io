@@ -14,7 +14,7 @@
     }
     
     function onMessage(message){
-      console.log('Message Received :');
+      console.log('PRES : Message Received');
       console.log(`Message Type : ${message.type}`);
       const messageData = JSON.stringify(message.data);
       console.log(`Message Data : ${messageData}`);
