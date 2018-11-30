@@ -1,8 +1,14 @@
 const { Observable, Subject, fromEvent, pipe } = rxjs;
 const { postMessage, filter, map } = rxjs.operators;
 
+/** @description Reactive event bus used to send and receive PostMessages.
+*/  
 class PostMessageEventBus {
   
+  /** @description The constructor
+  * @param {window} origin The window listening the incoming messages
+  * @param {window} target The target window for sent messages
+  */ 
   constructor(origin, target) {
     this.getMessages.bind(this);
     this.sendMessage.bind(this);
@@ -11,7 +17,15 @@ class PostMessageEventBus {
     this.target = target;
   }
  
+  /** @description Returns an observable of the incoming messages listened by the origin window.
+  * The messages can be filtered if the messageType is not null or "*".
+  * @param {string} messageType The message type used to filter the incoming messages
+  * @return {Observable} An observable of the incoming messages.
+  */
   getMessages(messageType) {
+    if(!messageType || messageType === '*'){
+      return this.messages
+    }
     return this.messages
       .pipe(
         map(message => JSON.parse(message.data)),
@@ -19,6 +33,10 @@ class PostMessageEventBus {
     );
   }
  
+  /** @description Send a PostMessage to the target window.
+  * @param {string} messageType The message type
+  * @param {string} messageType The message data 
+  */
   sendMessage(messageType, data) {
     this.target.postMessage(JSON.stringify({
       type: messageType,
