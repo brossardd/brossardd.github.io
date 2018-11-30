@@ -42,6 +42,52 @@ class PostMessageEventBus {
   }
 }
 
+const {webSocket} = rxjs.webSocket;
+
+/** @description Reactive event bus used to send and receive messages via
+* websockets.
+*/ 
+class WebSocketEventBus {
+ 
+  /** @description The constructor
+  * @param {Object} websocketCtr The websocket constructor
+  */ 
+  constructor(websocketCtr) {
+    this.subject = webSocket({websocketCtr});
+    
+    /** @description Returns an observable of the incoming messages.
+    * The messages can be filtered if the messageType is not null or "*".
+    * @param {string} messageType The message type used to filter the incoming messages
+    * @return {Observable} An observable of the incoming messages.
+    */
+    this.getMessages = messageType => {
+      if(!messageType || messageType === '*') {
+        return this.subject.multiplex(
+          () => JSON.stringify({subscribe: messageType}),
+          () => JSON.stringify({unsubscribe: messageType}),
+          message => true);
+        }
+      }
+
+      return this.subject.multiplex(
+        () => JSON.stringify({subscribe: messageType}),
+        () => JSON.stringify({unsubscribe: messageType}),
+        message => message.type === messageType);
+    }
+
+   /** @description Send a message.
+    * @param {Object} message The message
+    * @param {string} message.type The message type.
+    * @param {string} message.data The message data.
+    */
+    this.sendMessage = ({type, data}) => {
+      this.subject.next({type, data});
+    };
+  }
+}
+
+
+
 class FakeSubject {
   constructor(){
     this.subscribe = sub => {
