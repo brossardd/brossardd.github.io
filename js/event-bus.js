@@ -20,7 +20,7 @@ class PostMessageEventBus {
   * @param {string} messageType The message type used to filter the incoming messages
   * @return {Observable} An observable of the incoming messages.
   */
-  getMessages = messageType => {
+  getMessages(messageType) {
     if(!messageType || messageType === '*'){
       return this.messages;
     }
@@ -33,37 +33,40 @@ class PostMessageEventBus {
   * @param {string} message.type The message type.
   * @param {string} message.data The message data.
   */
-  sendMessage = ({type, data}) => {
+  sendMessage({type, data}) {
     this.target.postMessage({type, data}, '*');
   }
 }
 
 class FakeSubject {
   constructor(){
+    subscribe = sub => {
+      this.subscribtion = sub;
+    };
+  
+    next = message => {
+      this.subscribtion(message);
+    };
   }
   
-  subscribe = sub => {
-    this.subscribtion = sub;
-  }
   
-  next = message => {
-    this.subscribtion(message);
-  }
 }
 
 class MockWebSocketEventBus {
   constructor(websocketCtr) {
     this.messages = new FakeSubject();
-  }
-
-  getMessages = messageType => {
-    return this.messages;
-  }
+    
+    getMessages = messageType => {
+      return this.messages;
+    };
   
-  sendMessage = ({type, data}) => {
-    if(type === 'REQUEST-SNAPSHOT') {
-      this.messages.next({type: 'SNAPSHOT', data: {}});
+    sendMessage = ({type, data}) => {
+      if(type === 'REQUEST-SNAPSHOT') {
+        this.messages.next({type: 'SNAPSHOT', data: {}});
+      };
     }
   }
+
+  
 }
 
