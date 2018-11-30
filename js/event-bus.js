@@ -10,6 +10,9 @@ class PostMessageEventBus {
   * @param {window} target The target window for sent messages
   */ 
   constructor(origin, target) {
+    this.getMessages.bind(this);
+    this.sendMessage.bind(this);
+    
     this.messages = fromEvent(origin, 'message').pipe(
       map(event => event.data));
     this.target = target;
@@ -48,8 +51,6 @@ class FakeSubject {
       this.subscribtion(message);
     };
   }
-  
-  
 }
 
 class MockWebSocketEventBus {
@@ -66,7 +67,5 @@ class MockWebSocketEventBus {
       };
     }
   }
-
-  
 }
 
