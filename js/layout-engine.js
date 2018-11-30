@@ -2,9 +2,11 @@
 
 class LayoutEngine {
   constructor() {
+    this.init.bind(this);
+    this.log.bind(this);
   }
   
-  init = targetWin => {
+  init(targetWin) {
     const websocketEventBus = new MockWebSocketEventBus();
     const postMessageEventBus = new PostMessageEventBus(window, targetWin);
     
@@ -14,7 +16,7 @@ class LayoutEngine {
     postMessageEventBus.getMessages().subscribe(this.log);
   }
   
-  log = message => {
+  log(message) {
     console.log('LAYOUT MESSAGE RECEIVED');
     console.log('MESSAGE TYPE : ' + message.type);
     console.log('MESSAGE DATA : ' + JSON.stringify(message.data));
