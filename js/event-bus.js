@@ -20,7 +20,7 @@ class PostMessageEventBus {
   * @param {string} messageType The message type used to filter the incoming messages
   * @return {Observable} An observable of the incoming messages.
   */
-  getMessages = (messageType) => {
+  getMessages = messageType => {
     if(!messageType || messageType === '*'){
       return this.messages;
     }
@@ -42,11 +42,11 @@ class FakeSubject {
   constructor(){
   }
   
-  subscribe = (sub) => {
+  subscribe = sub => {
     this.subscribtion = sub;
   }
   
-  next = (message) => {
+  next = message => {
     this.subscribtion(message);
   }
 }
@@ -56,7 +56,7 @@ class MockWebSocketEventBus {
     this.messages = new FakeSubject();
   }
 
-  getMessages = (messageType) => {
+  getMessages = messageType => {
     return this.messages;
   }
   
