@@ -81,6 +81,17 @@ class WebSocketEventBus {
   }
 }
 
+/** @description Reactive event bus used to send and receive messages via
+* websockets at server side.
+*/ 
+class ServerWebSocketEventBus {
+ 
+  /** @description The constructor
+  * @param {Object} websocketCtr The websocket constructor
+  */ 
+  constructor(websocketCtr) {}
+}
+
 
 
 class FakeSubject {
