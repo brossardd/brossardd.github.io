@@ -23,12 +23,12 @@ class PostMessageEventBus {
     * @param {string} messageTypeRegex The message type regex used to filter the incoming messages
     * @return {Observable} An observable of the incoming messages.
     */
-    this.getMessages = messageTypeRegex => {
-      if(!messageTypeRegex){
+    this.getMessages = messageType => {
+      if(!messageType){
         return this.messages$;
       }
       return this.messages$.pipe(
-          filter(data => data.type.match(messageTypeRegex)));
+          filter(data => data.type.match(messageType)));
     };
     
     /** @description Send a PostMessage to the target window.
@@ -60,14 +60,14 @@ class WebSocketEventBus {
     * @param {string} messageTypeRegex The message type regex used to filter the incoming messages
     * @return {Observable} An observable of the incoming messages.
     */
-    this.getMessages = messageTypeRegex => {
-      if(!messageTypeRegex) {
+    this.getMessages = messageType => {
+      if(!messageType) {
         return this.messages;
       }
       return this.subject$.multiplex(
-        () => JSON.stringify({subscribe: messageTypeRegex}),
-        () => JSON.stringify({unsubscribe: messageTypeRegex}),
-        message => message.type.match(messageTypeRegex));
+        () => JSON.stringify({subscribe: messageType}),
+        () => JSON.stringify({unsubscribe: messageType}),
+        message => message.type.match(messageType));
     };
 
    /** @description Send a message.
