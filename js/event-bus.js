@@ -50,10 +50,10 @@ const {webSocket} = rxjs.webSocket;
 class WebSocketEventBus {
  
   /** @description The constructor
-  * @param {Object} websocketCtr The websocket constructor
+  * @param {string} url The websocket url
   */ 
-  constructor(websocketCtr) {
-    this.subject$ = webSocket({websocketCtr});
+  constructor(url) {
+    this.subject$ = Observable.webSocket(url);
     
     /** @description Returns an observable of the incoming messages.
     * The messages can be filtered if the messageTypeRegex is not null.
