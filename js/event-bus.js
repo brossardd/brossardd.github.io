@@ -81,15 +81,33 @@ class WebSocketEventBus {
   }
 }
 
+import io from 'socket.io';
+
 /** @description Reactive event bus used to send and receive messages via
 * websockets at server side.
 */ 
 class ServerWebSocketEventBus {
  
   /** @description The constructor
-  * @param {Object} websocketCtr The websocket constructor
+  * @param {Object} server The http server
   */ 
-  constructor(websocketCtr) {}
+  constructor(server) {
+    // Initialise Socket.IO and wrap in observable
+    const io$ = Observable.of(io(http));
+    
+    // Stream of connections
+    const connection$ = io$.switchMap(io => {
+      return Observable.fromEvent(io, 'connection')
+        .map(client => ({ io, client }));
+      });
+    
+    // Stream of disconnections
+    const disconnection$ = connection$
+      .mergeMap(({ client }) => {
+        return Observable.fromEvent(client, 'disconnect')
+          .map(() => client)
+      });
+  }
 }
 
 
