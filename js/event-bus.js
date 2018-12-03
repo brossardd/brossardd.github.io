@@ -20,7 +20,7 @@ class PostMessageEventBus {
     
     /** @description Returns an observable of the incoming messages listened by the origin window.
     * The messages can be filtered if the messageType is not null.
-    * @param {string} messageTypeRegex The message type regex used to filter the incoming messages
+    * @param {string} messageType The message type regex used to filter the incoming messages
     * @return {Observable} An observable of the incoming messages.
     */
     this.getMessages = messageType => {
@@ -57,7 +57,7 @@ class WebSocketEventBus {
     
     /** @description Returns an observable of the incoming messages.
     * The messages can be filtered if the messageTypeRegex is not null.
-    * @param {string} messageTypeRegex The message type regex used to filter the incoming messages
+    * @param {string} messageType The message type regex used to filter the incoming messages
     * @return {Observable} An observable of the incoming messages.
     */
     this.getMessages = messageType => {
