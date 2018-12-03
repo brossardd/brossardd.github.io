@@ -1,4 +1,5 @@
 
+export const REFRESH = 'REFRESH';
 
 function rootReducer(state = {}, action) {
   switch (action.type) {
