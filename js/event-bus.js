@@ -15,7 +15,7 @@ class PostMessageEventBus {
     /**
     * Creates the messages observable.
     */
-    this.messages = fromEvent(origin, 'message').pipe(
+    this.messages$ = fromEvent(origin, 'message').pipe(
       map(event => event.data));
     
     /** @description Returns an observable of the incoming messages listened by the origin window.
@@ -25,9 +25,9 @@ class PostMessageEventBus {
     */
     this.getMessages = messageTypeRegex => {
       if(!messageTypeRegex){
-        return this.messages;
+        return this.messages$;
       }
-      return this.messages.pipe(
+      return this.messages$.pipe(
           filter(data => data.type.match(messageTypeRegex)));
     };
     
@@ -53,7 +53,7 @@ class WebSocketEventBus {
   * @param {Object} websocketCtr The websocket constructor
   */ 
   constructor(websocketCtr) {
-    this.subject = webSocket({websocketCtr});
+    this.subject$ = webSocket({websocketCtr});
     
     /** @description Returns an observable of the incoming messages.
     * The messages can be filtered if the messageTypeRegex is not null.
@@ -64,7 +64,7 @@ class WebSocketEventBus {
       if(!messageTypeRegex) {
         return this.messages;
       }
-      return this.subject.multiplex(
+      return this.subject$.multiplex(
         () => JSON.stringify({subscribe: messageTypeRegex}),
         () => JSON.stringify({unsubscribe: messageTypeRegex}),
         message => message.type.match(messageTypeRegex));
@@ -76,7 +76,7 @@ class WebSocketEventBus {
     * @param {string} message.data The message data.
     */
     this.sendMessage = ({type, data}) => {
-      this.subject.next({type, data});
+      this.subject$.next({type, data});
     };
   }
 }
