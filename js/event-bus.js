@@ -17,29 +17,29 @@ class PostMessageEventBus {
     */
     this.messages$ = fromEvent(origin, 'message').pipe(
       map(event => event.data));
-    
-    /** @description Returns an observable of the incoming messages listened by the origin window.
-    * The messages can be filtered if the messageType is not null.
-    * @param {string} messageType The message type regex used to filter the incoming messages
-    * @return {Observable} An observable of the incoming messages.
-    */
-    this.getMessages = messageType => {
-      if(!messageType){
-        return this.messages$;
-      }
-      return this.messages$.pipe(
-          filter(data => data.type.match(messageType)));
-    };
-    
-    /** @description Send a PostMessage to the target window.
-    * @param {Object} message The message
-    * @param {string} message.type The message type.
-    * @param {string} message.data The message data.
-    */
-    this.sendMessage = ({type, data}) => {
-      this.target.postMessage({type, data}, '*');
-    };
   }
+  
+  /** @description Returns an observable of the incoming messages listened by the origin window.
+  * The messages can be filtered if the messageType is not null.
+  * @param {string} messageType The message type regex used to filter the incoming messages
+  * @return {Observable} An observable of the incoming messages.
+  */
+  getMessages = messageType => {
+    if(!messageType){
+      return this.messages$;
+    }
+    return this.messages$.pipe(
+        filter(data => data.type.match(messageType)));
+  };
+  
+  /** @description Send a PostMessage to the target window.
+  * @param {Object} message The message
+  * @param {string} message.type The message type.
+  * @param {string} message.data The message data.
+  */
+  .sendMessage = ({type, data}) => {
+    this.target.postMessage({type, data}, '*');
+  };
 }
 
 const {webSocket} = rxjs.webSocket;
