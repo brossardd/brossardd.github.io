@@ -68,7 +68,7 @@ class WebSocketEventBus {
   */
   getMessages(messageType){
     if(!messageType) {
-      return this.messages;
+      return this.subject$;
     }
     return this.subject$.multiplex(
       () => JSON.stringify({subscribe: messageType}),
