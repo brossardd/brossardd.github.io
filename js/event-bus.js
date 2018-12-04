@@ -37,7 +37,7 @@ class PostMessageEventBus {
   * @param {string} message.type The message type.
   * @param {string} message.data The message data.
   */
-  .sendMessage = ({type, data}) => {
+  sendMessage = ({type, data}) => {
     this.target.postMessage({type, data}, '*');
   };
 }
