@@ -94,21 +94,38 @@ class ServerWebSocketEventBus {
   * @param {Object} server The http server
   */ 
   constructor(server) {
-    // Initialise Socket.IO and wrap in observable
+    /** Binds the methods */
+    this.getMessages = this.getMessages.bind(this);
+    
+    /** Initialise Socket.IO and wrap in observable*/
     const io$ = Observable.of(io(http));
     
-    // Stream of connections
-    const connections$ = io$.switchMap(io => {
+    /** Stream of connections*/
+    this.connections$ = io$.switchMap(io => {
       return Observable.fromEvent(io, 'connection')
         .map(client => ({ io, client }));
       });
     
-    // Stream of disconnections
-    const disconnections$ = connection$
+    /** Stream of disconnections */
+    this.disconnections$ = connections$
       .mergeMap(({ client }) => {
         return Observable.fromEvent(client, 'disconnect')
           .map(() => client)
       });
+  }
+  
+  /** @description Returns an observable of the incoming messages.
+  * The messages can be filtered if the messageTypeRegex is not null.
+  * @param {string} messageType The message type regex used to filter the incoming messages
+  * @return {Observable} An observable of the incoming messages.
+  */
+  getMessages(messageType){
+    return this.connections$
+      .mergeMap(({io, client}) => {
+        return fromEvent(client, messageType)
+          .takeUntil(fromEvent(client, 'disconnect'))
+          .map(message => ({ type: message.type, data: message.data }));
+    });
   }
 }
 
