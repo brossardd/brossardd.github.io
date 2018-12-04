@@ -7,7 +7,7 @@ class LayoutEngine {
   }
   
   init(targetWin) {
-    const websocketEventBus = new MockWebSocketEventBus();
+    const websocketEventBus = new WebSocketEventBus('ws://localhost:8080/events');
     const postMessageEventBus = new PostMessageEventBus(window, targetWin);
     
     websocketEventBus.getMessages().subscribe(postMessageEventBus.sendMessage);
