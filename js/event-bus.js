@@ -44,8 +44,6 @@ class PostMessageEventBus {
   }
 }
 
-const {webSocket} = rxjs.webSocket;
-
 /** @description Reactive event bus used to send and receive messages via
 * websockets.*/ 
 class WebSocketEventBus {
@@ -59,7 +57,7 @@ class WebSocketEventBus {
     this.sendMessage = this.sendMessage.bind(this);
     
     /** Creates the messages web socket observable.*/
-    this.subject$ = Observable.webSocket(url);
+    this.subject$ = webSocket(url);
   }
   
   /** @description Returns an observable of the incoming messages.
