@@ -81,8 +81,6 @@ class WebSocketEventBus {
   }
 }
 
-import io from 'socket.io';
-
 /** @description Reactive event bus used to send and receive messages via
 * websockets at server side.
 */ 
