@@ -9,7 +9,7 @@ class PostMessageEventBus {
   * @param {window} target The target window for sent messages
   */ 
   constructor(origin, target) {
-    /** Bind the methods*/
+    /** Binds the methods*/
     this.getMessages = this.getMessages.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
     
@@ -53,7 +53,7 @@ class WebSocketEventBus {
   * @param {string} url The websocket url
   */ 
   constructor(url) {
-    /** Bind the methods*/
+    /** Binds the methods*/
     this.getMessages = this.getMessages.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
     
@@ -76,7 +76,7 @@ class WebSocketEventBus {
       message => message.type.match(messageType));
   }
 
-  ** @description Send a message.
+  /** @description Send a message.
   * @param {Object} message The message
   * @param {string} message.type The message type.
   * @param {string} message.data The message data.
