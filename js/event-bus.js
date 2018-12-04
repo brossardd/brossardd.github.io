@@ -1,8 +1,7 @@
 const { Observable, Subject, fromEvent, pipe } = rxjs;
 const { postMessage, filter, map } = rxjs.operators;
 
-/** @description Reactive event bus used to send and receive PostMessages.
-*/  
+/** @description Reactive event bus used to send and receive PostMessages.*/  
 class PostMessageEventBus {
   
   /** @description The constructor
@@ -10,11 +9,13 @@ class PostMessageEventBus {
   * @param {window} target The target window for sent messages
   */ 
   constructor(origin, target) {
+    /** Bind the methods*/
+    this.getMessages = this.getMessages.bind(this);
+    this.sendMessage = this.sendMessage.bind(this);
+    
     this.target = target;
     
-    /**
-    * Creates the messages observable.
-    */
+    /** Creates the messages observable.*/
     this.messages$ = fromEvent(origin, 'message').pipe(
       map(event => event.data));
   }
@@ -24,7 +25,7 @@ class PostMessageEventBus {
   * @param {string} messageType The message type regex used to filter the incoming messages
   * @return {Observable} An observable of the incoming messages.
   */
-  getMessages = messageType => {
+  getMessages (messageType){
     if(!messageType){
       return this.messages$;
     }
@@ -37,7 +38,7 @@ class PostMessageEventBus {
   * @param {string} message.type The message type.
   * @param {string} message.data The message data.
   */
-  sendMessage = ({type, data}) => {
+  sendMessage({type, data}){
     this.target.postMessage({type, data}, '*');
   }
 }
@@ -45,14 +46,18 @@ class PostMessageEventBus {
 const {webSocket} = rxjs.webSocket;
 
 /** @description Reactive event bus used to send and receive messages via
-* websockets.
-*/ 
+* websockets.*/ 
 class WebSocketEventBus {
  
   /** @description The constructor
   * @param {string} url The websocket url
   */ 
   constructor(url) {
+    /** Bind the methods*/
+    this.getMessages = this.getMessages.bind(this);
+    this.sendMessage = this.sendMessage.bind(this);
+    
+    /** Creates the messages web socket observable.*/
     this.subject$ = Observable.webSocket(url);
   }
   
@@ -61,7 +66,7 @@ class WebSocketEventBus {
   * @param {string} messageType The message type regex used to filter the incoming messages
   * @return {Observable} An observable of the incoming messages.
   */
-  getMessages = messageType => {
+  getMessages(messageType){
     if(!messageType) {
       return this.messages;
     }
@@ -69,16 +74,16 @@ class WebSocketEventBus {
       () => JSON.stringify({subscribe: messageType}),
       () => JSON.stringify({unsubscribe: messageType}),
       message => message.type.match(messageType));
-  };
+  }
 
   ** @description Send a message.
   * @param {Object} message The message
   * @param {string} message.type The message type.
   * @param {string} message.data The message data.
   */
-  sendMessage = ({type, data}) => {
+  sendMessage({type, data}){
     this.subject$.next({type, data});
-  };
+  }
 }
 
 /** @description Reactive event bus used to send and receive messages via
