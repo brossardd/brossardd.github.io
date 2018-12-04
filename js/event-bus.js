@@ -24,13 +24,13 @@ class PostMessageEventBus {
   * @param {string} messageType The message type regex used to filter the incoming messages
   * @return {Observable} An observable of the incoming messages.
   */
-  getMessages = (messageType) => {
+  getMessages = messageType => {
     if(!messageType){
       return this.messages$;
     }
     return this.messages$.pipe(
         filter(data => data.type.match(messageType)));
-  };
+  }
   
   /** @description Send a PostMessage to the target window.
   * @param {Object} message The message
@@ -39,7 +39,7 @@ class PostMessageEventBus {
   */
   sendMessage = ({type, data}) => {
     this.target.postMessage({type, data}, '*');
-  };
+  }
 }
 
 const {webSocket} = rxjs.webSocket;
