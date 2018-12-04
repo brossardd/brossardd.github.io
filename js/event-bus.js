@@ -24,7 +24,7 @@ class PostMessageEventBus {
   * @param {string} messageType The message type regex used to filter the incoming messages
   * @return {Observable} An observable of the incoming messages.
   */
-  getMessages = messageType => {
+  getMessages = (messageType) => {
     if(!messageType){
       return this.messages$;
     }
