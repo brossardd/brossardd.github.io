@@ -96,13 +96,13 @@ class ServerWebSocketEventBus {
     const io$ = Observable.of(io(http));
     
     // Stream of connections
-    const connection$ = io$.switchMap(io => {
+    const connections$ = io$.switchMap(io => {
       return Observable.fromEvent(io, 'connection')
         .map(client => ({ io, client }));
       });
     
     // Stream of disconnections
-    const disconnection$ = connection$
+    const disconnections$ = connection$
       .mergeMap(({ client }) => {
         return Observable.fromEvent(client, 'disconnect')
           .map(() => client)
