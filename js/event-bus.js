@@ -1,5 +1,6 @@
 const { Observable, Subject, fromEvent, pipe } = rxjs;
 const { postMessage, filter, map } = rxjs.operators;
+const { webSocket } = rxjs.webSocket;
 
 /** @description Reactive event bus used to send and receive PostMessages.*/  
 class PostMessageEventBus {
